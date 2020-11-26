@@ -47,10 +47,12 @@ def add_label(address, label_text):
     elif instr.getFlowType().isCall() and len(instr.getReferencesFrom()):
         symbol = getSymbolAt(instr.getReferencesFrom()[0].getToAddress())
         if symbol:
-            for external_function in fm.getExternalFunctions():
-                if external_function.getName() in symbol.getName():
-                    label_text = external_function.getName()
-                    break
+            if len(symbol.getName().split("_")) == 3:
+                symbol_name = symbol.getName().split("_")[1]
+                for external_function in fm.getExternalFunctions():
+                    if external_function.getName() == symbol_name:
+                        label_text = external_function.getName()
+                        break
             else:
                 label_text = symbol.getName()
 
