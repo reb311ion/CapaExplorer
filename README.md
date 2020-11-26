@@ -1,6 +1,6 @@
 <h1 align="center"> CapaExplorer</h1>
 <div align="center">
- <img src="https://user-images.githubusercontent.com/22657154/84803494-5f173100-b002-11ea-978d-9d1c636c5e54.gif" alt="Example" width="150" height="150"> 
+ <img src="https://raw.githubusercontent.com/reb311ion/CapaExplorer/main/capaexplorer.png" alt="Example" width="150" height="150"> 
   <p>
   <strong>
   IMPROVE THE DRAGON
