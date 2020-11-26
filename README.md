@@ -13,7 +13,7 @@
     <img src="https://img.shields.io/badge/version-v0.1-green.svg"
   </a>
   <a >
-    <img src="https://img.shields.io/badge/license-GPLv3-blue.svg"
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg"
   </a>
 </div>
    
