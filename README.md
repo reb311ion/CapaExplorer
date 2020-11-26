@@ -36,7 +36,7 @@ capa -j malware.exe > output.json.
 
 ## 🔒 License
 
-Licensed under [GNU General Public License v3.0](https://github.com/reb311ion/CapaExplorer/blob/master/LICENSE)
+Licensed under [MIT License](https://github.com/reb311ion/CapaExplorer/blob/master/LICENSE)
 
 ## ⛏️ BUG? OPEN NEW ISSUE
 
