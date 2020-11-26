@@ -20,7 +20,7 @@
 
 ## 🚀 Installation:
 
-Copy the repository files into any of `ghidra_scripts` directories, open the Script Manager and search for emerald and enable In Tool option:
+Copy the repository files into any of `ghidra_scripts` directories, open the Script Manager and search for capaexplorer and enable In Tool option:
 
 ![image](https://user-images.githubusercontent.com/22657154/100378199-4ed89880-301b-11eb-8986-e47472c3821a.png)
 
