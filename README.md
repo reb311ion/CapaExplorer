@@ -29,7 +29,7 @@ Copy the repository files into any of `ghidra_scripts` directories, open the Scr
 [Capa](https://github.com/fireeye/capa) json output can be generated using the following command:
 
 ```c
-capa -j malware.exe > output.json.
+capa -j malware.exe > output.json
 ```
 
 ![image](https://user-images.githubusercontent.com/22657154/100378347-9b23d880-301b-11eb-9faf-b933afc930ac.png)
