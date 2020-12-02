@@ -5,6 +5,7 @@
 #@toolbar capaexplorer.png
 
 import json
+import ghidra.app.cmd.label.CreateNamespacesCmd
 from ghidra.framework.cmd import Command
 from ghidra.program.database import ProgramBuilder
 from ghidra.program.database.function import OverlappingFunctionException
@@ -21,7 +22,6 @@ from ghidra.util.exception import DuplicateNameException
 gnamespace = currentProgram.getGlobalNamespace()
 symbolTable = currentProgram.getSymbolTable()
 nmm = currentProgram.getNamespaceManager()
-fm = currentProgram.getFunctionManager()
 
 class capa_item:
     def __init__(self, namespace, scope, capability, match, label_list, attack=None):
@@ -32,6 +32,12 @@ class capa_item:
         self.label_list = label_list
         self.attack = attack
 
+def is_function_external(function_name):
+    fm = currentProgram.getFunctionManager()
+    for external_function in fm.getExternalFunctions():
+         if external_function.getName() == function_name:
+             return True
+    return False
 
 def add_label(address, label_text):
     addr = toAddr(address)
@@ -42,20 +48,30 @@ def add_label(address, label_text):
 
     if is_function_start: 
         if not is_function_start.getParentNamespace().toString().startswith("capa::"):
-            label_text = is_function_start.getName()
+            if not is_function_start.getName().startswith("fun."):
+                label_text = "fun." + is_function_start.getName()
+            else:
+                label_text = is_function_start.getName()
 
-    elif instr.getFlowType().isCall() and len(instr.getReferencesFrom()):
+    elif instr and instr.getFlowType().isCall() and len(instr.getReferencesFrom()):
         symbol = getSymbolAt(instr.getReferencesFrom()[0].getToAddress())
         if symbol:
             if len(symbol.getName().split("_")) == 3:
                 symbol_name = symbol.getName().split("_")[1]
-                for external_function in fm.getExternalFunctions():
-                    if external_function.getName() == symbol_name:
-                        label_text = external_function.getName()
-                        break
+                if is_function_external(symbol_name):
+                    label_text = "api." + symbol_name
             else:
-                label_text = symbol.getName()
-
+                symbol_name = symbol.getName()
+                if is_function_external(symbol_name):
+                    # eg api.CreateFile
+                    label_text = "api." + symbol_name
+                else:
+                    if getFunctionAt(symbol.getAddress()):
+                        # eg fun._00412074
+                        label_text = "fun." + symbol_name
+                    else:
+                        # eg. dat.DAT_00411054
+                        label_text = "dat." + symbol_name
     return symbolTable.createLabel(addr, label_text, USER_DEFINED)
 
 
